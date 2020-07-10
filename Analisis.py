@@ -18,7 +18,7 @@ def KNN(X_train, y_train, X_test, y_test):
     
     for q in range(20): #Consideramos evaluar hasta un maximo de 20 vecinos
         #Crear el clasificador KNN
-        knn = KNeighborsClassifier(n_neighbors=(q+1)) #El for arranca desde 0
+        knn = KNeighborsClassifier(n_neighbors=(q+1)) #El for arranca desde 0 por eso sumamos 1
 
         #Entrenar el modelo utilizando los training dataset
         knn.fit(X_train, y_train)
