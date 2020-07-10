@@ -10,6 +10,6 @@ Y a la salida hay tres tipos de clases, haciendo referencia a los 3 tipos de cul
 
 Los parámetros que se evaluaron fueron: cantidad de vecinos k y combinación de características.
 
-Debido a que los datos no están normalizados y el desequilibrio en la cantidad de datos para cada clase, cada vez que se ejecuta el programa se puede llegar a obtener distintas soluciones.
+Debido a que se reparten los datos 70% para train y 30% para test aleatoriamente, cada vez que se ejecuta el programa se van a obtener distintas soluciones. Sí se quiere evitar ese inconveniente se debe de tener ya definidos e invariables cada conjunto de datos para train y test.
 
 La ventaja de utilizar KNN radica en que es más rápido en comparación a algunos algortimos de clasificación. Las desventajas son el elevado costo y tiempo en la fase test,no es adecuado para los datos de grandes dimensiones y las características con altas magnitudes pesarán más que las características con bajas magnitudes.
