@@ -86,3 +86,7 @@ print("Configuracion de hiperparametros optimas")
 print("Rendimiento maximo: ", rendimiento_optimo)
 print("Para cantidad de vecinos k: ", vecinos_optimo)
 print("Para las siguientes caracteristica/feature: ", feature_optimo)
+
+#Bibliografia consultada
+#https://www.datacamp.com/community/tutorials/k-nearest-neighbor-classification-scikit-learn
+#https://www.kaggle.com/uciml/red-wine-quality-cortez-et-al-2009
