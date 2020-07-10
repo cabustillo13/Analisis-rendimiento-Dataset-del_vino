@@ -50,7 +50,6 @@ categoria = range(11)
 feature = list()
 
 #La idea es crear un conjunto de combinaciones para probar el rendimiento para distinta cantidad de features
-
 rendimiento_optimo = 500
 vecinos_optimo = 0
 feature_optimo = list()
@@ -69,13 +68,11 @@ for i in range(10):
         no_feature = np.delete(categoria,feature[i], axis = 0)
     
         #Me quedo con las feature/caracteristica que quiero analizar
-        datos1 = np.delete(X_train, no_feature, axis = 0)
-        datos2 = np.delete(X_test, no_feature, axis = 0)
-        datos3 = np.delete(y_train, no_feature, axis = 0)
-        datos4 = np.delete(y_test, no_feature, axis = 0)
+        datos1 = np.delete(X_train, no_feature, axis = 1)
+        datos2 = np.delete(X_test, no_feature, axis = 1)
         
         #Clasificacion KNN 
-        precision_max , vecinos = KNN(datos1, datos3, datos2, datos4)
+        precision_max , vecinos = KNN(datos1, y_train, datos2, y_test)
     
         if (rendimiento_optimo > precision_max):
             feature_optimo = feature[i]
