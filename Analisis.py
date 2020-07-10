@@ -16,7 +16,7 @@ def KNN(X_train, y_train, X_test, y_test):
     precision_max = 500 #Valor semilla, sabemos que el porcentaje que obtendremos siempre sera menor o igual a 100
     vecinos = 0         # Cantidad de vecinos con los que se obtuvo el maximo rendimiento
     
-    for q in range(20):
+    for q in range(20): #Consideramos evaluar hasta un maximo de 20 vecinos
         #Crear el clasificador KNN
         knn = KNeighborsClassifier(n_neighbors=(q+1)) #El for arranca desde 0
 
@@ -43,64 +43,46 @@ def KNN(X_train, y_train, X_test, y_test):
 wine = datasets.load_wine()
 
 #Dividir dataset para el train y test
-X_train, X_test, y_train, y_test = train_test_split(wine.data, wine.target, test_size=0.3) # 70% training and 30% test
+X_train, X_test, y_train, y_test = train_test_split(wine.data, wine.target, test_size=0.3) # 70% training y 30% test
 
 #Categorias -> Hay 11 features de este dataset
 categoria = range(11)
 feature = list()
 
 #La idea es crear un conjunto de combinaciones para probar el rendimiento para distinta cantidad de features
-for i in range(10): 
+
+rendimiento_optimo = 500
+vecinos_optimo = 0
+feature_optimo = list()
+
+for i in range(10):  
     
     feature = Funciones.combinaciones(categoria,i+1)
     length = len(feature)
     
-    no_feature = np.delete(categoria,feature[i], axis = 0)
+    #Para observar las combinaciones que se realizan
+    #print(feature)
+    #print("\n")
     
-
-#print(feature)
-    #feature = np.delete(categoria, feature, axis=1) #Solo se deja los elementos de la lista que no vamos a utilizar para luego eliminarlas de la lista de test y train 
-
-##ME QUEDE ACA
-#y = np.array([[1,2,3,9],[4,5,6,9],[7,8,9,9],[10,11,12,9]])
-#a=np.delete(y, [0,1], axis=1)
-#print(a)
-
-
-
-##COMENTE DESDE AQUI
-##abcisas = list()
-##ordenadas = list()
-
-##for q in range(20):
-
-    #Create KNN Classifier
-##    knn = KNeighborsClassifier(n_neighbors=(q+1)) #El for arranca desde 0
-
-    #Train the model using the training sets
-##    knn.fit(X_train, y_train)
-
-    #Predict the response for test dataset
-##    y_pred = knn.predict(X_test)
-
-#print(y_pred)
-#print(y_pred[0])
-#print(y_pred[1])
-#print(y_pred[7])
-#print(y_pred[8])
-
-    # Model Accuracy, how often is the classifier correct?
-##    precision = metrics.accuracy_score(y_test, y_pred)
-##    print("Accuracy:", precision)
+    for i in range(length):
     
-##    abcisas.append(q+1)
-##    ordenadas.append(precision)
+        no_feature = np.delete(categoria,feature[i], axis = 0)
+    
+        #Me quedo con las feature/caracteristica que quiero analizar
+        datos1 = np.delete(X_train, no_feature, axis = 0)
+        datos2 = np.delete(X_test, no_feature, axis = 0)
+        datos3 = np.delete(y_train, no_feature, axis = 0)
+        datos4 = np.delete(y_test, no_feature, axis = 0)
+        
+        #Clasificacion KNN 
+        precision_max , vecinos = KNN(datos1, datos3, datos2, datos4)
+    
+        if (rendimiento_optimo > precision_max):
+            feature_optimo = feature[i]
+            rendimiento_optimo = precision_max
+            vecinos_optimo = vecinos
 
-#print(wine.feature_names)
-
-#plt.plot(abcisas , ordenadas)
-#plt.xlabel('# de vecinos k')
-#plt.ylabel('Precision')
-#plt.title('Precision vrs cantidad de vecinos k')
-#plt.show()
-
+print("Configuracion de hiperparametros optimas")
+print("Rendimiento maximo: ", rendimiento_optimo)
+print("Para cantidad de vecinos k: ", vecinos_optimo)
+print("Para las siguientes caracteristica/feature: ", feature_optimo)
